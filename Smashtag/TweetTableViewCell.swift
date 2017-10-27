@@ -29,6 +29,10 @@ class TweetTableViewCell: UITableViewCell
         tweetTextLabel?.text = tweet?.text
         tweetUserLabel?.text = tweet?.user.description
         
+        // Cycle between hashtags, mentions, URLs
+        // For loop (?) to cycle through hastags array
+        // highlight in text that contains: tweet.hashtags[i].keyword
+        
         if let profileImageURL = tweet?.user.profileImageURL {
             // FIXME: blocks main thread
             if let imageData = try? Data(contentsOf: profileImageURL) {
