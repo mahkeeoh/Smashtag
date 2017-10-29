@@ -26,12 +26,9 @@ class TweetTableViewCell: UITableViewCell
     // whenever our public API tweet is set
     // we just update our outlets using this method
     private func updateUI() {
-        tweetTextLabel?.text = tweet?.text
+        tweetTextLabel?.attributedText = highlightMentions(tweet)
         tweetUserLabel?.text = tweet?.user.description
-        
-        // Cycle between hashtags, mentions, URLs
-        // For loop (?) to cycle through hastags array
-        // highlight in text that contains: tweet.hashtags[i].keyword
+
         
         if let profileImageURL = tweet?.user.profileImageURL {
             if let imageData = try? Data(contentsOf: profileImageURL) {
@@ -54,5 +51,29 @@ class TweetTableViewCell: UITableViewCell
         } else {
             tweetCreatedLabel?.text = nil
         }
+    }
+    
+    private struct Colors {
+        static let userMention = UIColor.green
+        static let hashtag = UIColor.orange
+        static let URL = UIColor.blue
+    
+    }
+    
+    private func highlightMentions(_ tweet: Twitter.Tweet?) -> NSAttributedString? {
+        if let tweet = tweet {
+           let attributedText = NSMutableAttributedString(string: tweet.text)
+            for hashtags in tweet.hashtags {
+                attributedText.addAttribute(NSForegroundColorAttributeName, value: Colors.hashtag, range: hashtags.nsrange)
+            }
+            for userMentions in tweet.userMentions {
+                attributedText.addAttribute(NSForegroundColorAttributeName, value: Colors.userMention, range: userMentions.nsrange)
+            }
+            for URLs in tweet.urls {
+                attributedText.addAttribute(NSForegroundColorAttributeName, value: Colors.URL, range: URLs.nsrange)
+            }
+            return attributedText
+        }
+        return nil
     }
 }
