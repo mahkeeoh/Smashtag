@@ -30,9 +30,10 @@ class TweetTableViewCell: UITableViewCell
         tweetUserLabel?.text = tweet?.user.description
         
         if let profileImageURL = tweet?.user.profileImageURL {
-            // FIXME: blocks main thread
             if let imageData = try? Data(contentsOf: profileImageURL) {
-                tweetProfileImageView?.image = UIImage(data: imageData)
+                DispatchQueue.main.async { [weak self] in
+                    self?.tweetProfileImageView?.image = UIImage(data: imageData)
+                }
             }
         } else {
             tweetProfileImageView?.image = nil

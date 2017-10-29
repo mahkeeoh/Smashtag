@@ -9,14 +9,6 @@
 import UIKit
 import Twitter
 
-// this entire project will not work
-// unless you make a Workspace that includes
-// both this application
-// and the Twitter project
-// and you drag the Product of the Twitter framework build
-// into the Embedded Binaries section
-// of the Project Settings of this application
-
 class TweetTableViewController: UITableViewController, UITextFieldDelegate
 {
     // MARK: Model
@@ -141,11 +133,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         // get the tweet that is associated with this row
         // that the table view is asking us to provide a UITableViewCell for
         let tweet: Twitter.Tweet = tweets[indexPath.section][indexPath.row]
-
-        // Configure the cell...
-        // the textLabel and detailTextLabel are for non-Custom cells
-//        cell.textLabel?.text = tweet.text
-//        cell.detailTextLabel?.text = tweet.user.name
+        print("\(tweet)")
         
         // our outlets to our custom UI
         // are connected to this custom UITableViewCell-subclassed cell
@@ -158,7 +146,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         return cell
     }
     
-    // Added after lecture for REFRESHING
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         // make it a little clearer when each pull from Twitter
         // occurs in the table by setting section header titles
