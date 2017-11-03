@@ -98,6 +98,14 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         // using the UITableViewDelegate method heightForRowAt
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "TweetDetail" {
+            if let vs = segue.destination.content as? TweetTableViewController {
+                
+            }
+        }
+    }
+    
     // MARK: Search Text Field
 
     // set ourself to be the UITextFieldDelegate
@@ -150,5 +158,17 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         // make it a little clearer when each pull from Twitter
         // occurs in the table by setting section header titles
         return "\(tweets.count-section)"
+    }
+}
+
+extension UIViewController {
+    
+    var content: UIViewController {
+        if let navCon = self as? UINavigationController {
+            return navCon.visibleViewController ?? self
+        }
+        else {
+            return self
+        }
     }
 }

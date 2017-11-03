@@ -26,7 +26,7 @@ class TweetTableViewCell: UITableViewCell
     // whenever our public API tweet is set
     // we just update our outlets using this method
     private func updateUI() {
-        tweetTextLabel?.attributedText = highlightMentions(tweet)
+        tweetTextLabel?.attributedText = highlightedMentionsText(tweet)
         tweetUserLabel?.text = tweet?.user.description
 
         
@@ -60,7 +60,7 @@ class TweetTableViewCell: UITableViewCell
     
     }
     
-    private func highlightMentions(_ tweet: Twitter.Tweet?) -> NSAttributedString? {
+    private func highlightedMentionsText(_ tweet: Twitter.Tweet?) -> NSAttributedString? {
         if let tweet = tweet {
            let attributedText = NSMutableAttributedString(string: tweet.text)
             for hashtags in tweet.hashtags {
