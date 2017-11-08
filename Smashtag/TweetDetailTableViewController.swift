@@ -64,15 +64,21 @@ class TweetDetailTableViewController: UITableViewController {
         return detailMentions[section].media!.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
+        
+        if case .image(_, _) = detailMentions[indexPath.section].media[0] {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath)
+        }
+        
+        else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "mentionCell", for: indexPath)
+        }
         // Configure the cell...
 
         return cell
     }
-    */
+    
 
 
 
