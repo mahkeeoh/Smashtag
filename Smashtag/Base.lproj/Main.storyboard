@@ -111,10 +111,10 @@
             </objects>
             <point key="canvasLocation" x="-431" y="-176"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Tweet Detail Table View Controller-->
         <scene sceneID="3fq-Cr-SoY">
             <objects>
-                <tableViewController id="v1v-Ht-HYM" sceneMemberID="viewController">
+                <tableViewController id="v1v-Ht-HYM" customClass="TweetDetailTableViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="elS-LC-f2Z">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
