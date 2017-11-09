@@ -63,18 +63,36 @@ class TweetDetailTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return detailMentions[section].media!.count
     }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return detailMentions[section].sectionName
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch detailMentions[indexPath.section].media![indexPath.row] {
+        case .mention(_):
+            return UITableViewAutomaticDimension
+        
+        case .image(_, let aspectRatio):
+            return (tableView.frame.size.width / CGFloat(aspectRatio))
+        }
+    }
 
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> TweetDetailTableViewCell {
         
-        if case .image(_, _) = detailMentions[indexPath.section].media[0] {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath)
+        var cell: TweetDetailTableViewCell
+    
+        switch detailMentions[indexPath.section].media![indexPath.row] {
+        case let .mention( mentionKeyword):
+            cell = tableView.dequeueReusableCell(withIdentifier: "mentionCell", for: indexPath) as! TweetDetailTableViewCell
+            cell.textLabel?.text = mentionKeyword
+        case let .image( url,  aspectRatio):
+            cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath) as! TweetDetailTableViewCell
+            cell.aspectRatio = aspectRatio
+            cell.imageURL = url
         }
         
-        else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "mentionCell", for: indexPath)
-        }
-        // Configure the cell...
 
         return cell
     }
