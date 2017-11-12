@@ -15,20 +15,19 @@ class TweetDetailTableViewController: UITableViewController {
 
     var tweet: Twitter.Tweet? {
         didSet {
-          //  var imageSection = DetailSection(media: [], sectionName: SectionNames.image)
-            if let images = tweet?.media {
+            if let images = tweet?.media, !(tweet?.media.isEmpty)! {
                 let imageSection = DetailSection(media: images.map{MediaType.image($0.url, $0.aspectRatio)}, sectionName: SectionNames.image)
                 detailMentions.append(imageSection)
             }
-            if let hashtags = tweet?.hashtags {
+            if let hashtags = tweet?.hashtags, !(tweet?.hashtags.isEmpty)! {
                 let hashtagSection = DetailSection(media: hashtags.map{MediaType.mention($0.keyword)}, sectionName: SectionNames.hashtag)
                 detailMentions.append(hashtagSection)
             }
-            if let users = tweet?.userMentions {
+            if let users = tweet?.userMentions, !(tweet?.userMentions.isEmpty)! {
                 let userSection = DetailSection(media: users.map{MediaType.mention($0.keyword)}, sectionName: SectionNames.user)
                 detailMentions.append(userSection)
             }
-            if let urls = tweet?.urls {
+            if let urls = tweet?.urls, !(tweet?.urls.isEmpty)! {
                 let urlSection = DetailSection(media: urls.map{MediaType.mention($0.keyword)}, sectionName: SectionNames.url)
                 detailMentions.append(urlSection)
             }
@@ -80,7 +79,6 @@ class TweetDetailTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> TweetDetailTableViewCell {
-        
         var cell: TweetDetailTableViewCell
     
         switch detailMentions[indexPath.section].media![indexPath.row] {
@@ -104,8 +102,28 @@ class TweetDetailTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller
+        if let cell = sender as? TweetDetailTableViewCell {
+            if segue.identifier == "showImage" {
+                if let ivc = segue.destination.content as? ImageViewController {
+                    ivc.detailImageURL = cell.imageURL
+                }
+            }
+        }
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

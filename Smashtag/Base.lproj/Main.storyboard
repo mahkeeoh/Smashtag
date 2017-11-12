@@ -127,6 +127,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="160.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="nwJ-eY-ylg" kind="show" identifier="showImage" id="fLa-hs-rxU"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mentionCell" rowHeight="125" id="0V1-f1-5v3" customClass="TweetDetailTableViewCell" customModule="Smashtag" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="189" width="375" height="125"/>
@@ -147,7 +150,45 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cBK-9y-TjZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="448.80000000000001" y="-177.66116941529236"/>
+            <point key="canvasLocation" x="465" y="252"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="Nof-ef-J8L">
+            <objects>
+                <viewController id="nwJ-eY-ylg" customClass="ImageViewController" customModule="Smashtag" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Pg9-LN-g2a"/>
+                        <viewControllerLayoutGuide type="bottom" id="wZf-P9-hX3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XGW-0e-WCC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PRF-Ac-55i">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="U8c-7n-b6K">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="PRF-Ac-55i" firstAttribute="top" secondItem="Pg9-LN-g2a" secondAttribute="bottom" id="5e7-Pt-zn7"/>
+                            <constraint firstItem="wZf-P9-hX3" firstAttribute="top" secondItem="PRF-Ac-55i" secondAttribute="bottom" id="ESL-py-BXc"/>
+                            <constraint firstItem="U8c-7n-b6K" firstAttribute="centerX" secondItem="PRF-Ac-55i" secondAttribute="centerX" id="S6a-z3-MWA"/>
+                            <constraint firstAttribute="trailing" secondItem="PRF-Ac-55i" secondAttribute="trailing" id="dD4-Aa-rY0"/>
+                            <constraint firstItem="U8c-7n-b6K" firstAttribute="centerY" secondItem="XGW-0e-WCC" secondAttribute="centerY" id="wsd-X1-rIJ"/>
+                            <constraint firstItem="PRF-Ac-55i" firstAttribute="leading" secondItem="XGW-0e-WCC" secondAttribute="leading" id="yBY-7C-adn"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageDetailView" destination="PRF-Ac-55i" id="Gfe-Ag-I56"/>
+                        <outlet property="loadingIndicator" destination="U8c-7n-b6K" id="ja7-g5-tt5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wI1-bJ-xKB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1253.5999999999999" y="-193.85307346326837"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="eeI-3b-0O6">

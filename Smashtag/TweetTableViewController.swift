@@ -22,7 +22,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     // when this is set
     // we'll reset our tweets Array
     // to reflect the result of fetching Tweets that match
-    var searchText: String? {
+    private var searchText: String? {
         didSet {
             searchTextField?.text = searchText
             searchTextField?.resignFirstResponder()
@@ -36,7 +36,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     
     
 
-    func insertTweets(_ newTweets: [Twitter.Tweet]) {
+    private func insertTweets(_ newTweets: [Twitter.Tweet]) {
         self.tweets.insert(newTweets, at:0)
         self.tableView.insertSections([0], with: .fade)
     }
@@ -103,6 +103,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
             if let vs = segue.destination.content as? TweetDetailTableViewController {
                 if let cell = sender as? TweetTableViewCell {
                     vs.tweet = cell.tweet
+                    vs.title = cell.tweet?.user.name
                 }
             }
         }

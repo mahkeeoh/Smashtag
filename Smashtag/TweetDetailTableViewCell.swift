@@ -10,7 +10,7 @@ import UIKit
 
 class TweetDetailTableViewCell: UITableViewCell {
 
-    private var tweetDetailImageView: UIImageView?
+    var tweetDetailImageView: UIImageView?
     var aspectRatio: Double?
     var imageURL: URL? {
         didSet {
@@ -23,7 +23,7 @@ class TweetDetailTableViewCell: UITableViewCell {
         if let imageData = try? Data(contentsOf: imageURL!) {
             DispatchQueue.main.async { [weak self] in
                 self?.tweetDetailImageView = UIImageView()
-                self?.tweetDetailImageView?.frame = CGRect(x: 0, y: 0, width: (self?.frame.size.width)!, height: ((self?.frame.size.width)! / CGFloat((self?.aspectRatio!)!)))
+                self?.tweetDetailImageView?.frame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: ((UIScreen.main.bounds.width) / CGFloat((self?.aspectRatio!)!)))
                 self?.tweetDetailImageView?.image = UIImage(data: imageData)
                 self?.addSubview((self?.tweetDetailImageView)!)
             }
