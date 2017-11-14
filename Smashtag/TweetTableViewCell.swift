@@ -28,8 +28,6 @@ class TweetTableViewCell: UITableViewCell
     private func updateUI() {
         tweetTextLabel?.attributedText = highlightedMentionsText(tweet)
         tweetUserLabel?.text = tweet?.user.description
-
-        
         if let profileImageURL = tweet?.user.profileImageURL {
             if let imageData = try? Data(contentsOf: profileImageURL) {
                 DispatchQueue.main.async { [weak self] in
@@ -57,7 +55,6 @@ class TweetTableViewCell: UITableViewCell
         static let userMention = UIColor.green
         static let hashtag = UIColor.orange
         static let URL = UIColor.blue
-    
     }
     
     private func highlightedMentionsText(_ tweet: Twitter.Tweet?) -> NSAttributedString? {

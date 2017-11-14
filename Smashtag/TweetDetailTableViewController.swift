@@ -12,7 +12,10 @@ import Twitter
 class TweetDetailTableViewController: UITableViewController {
     
     // Model
-
+    // Data structure made to make table view setup easier
+    
+    private var detailMentions = [DetailSection]()
+    
     var tweet: Twitter.Tweet? {
         didSet {
             if let images = tweet?.media, !(tweet?.media.isEmpty)! {
@@ -34,7 +37,6 @@ class TweetDetailTableViewController: UITableViewController {
         }
     }
     
-    private var detailMentions = [DetailSection]()
     
     private struct DetailSection {
         var media: [MediaType]?
@@ -67,6 +69,7 @@ class TweetDetailTableViewController: UITableViewController {
         return detailMentions[section].sectionName
     }
     
+    // Set row height to image height for image section
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch detailMentions[indexPath.section].media![indexPath.row] {
         case .mention(_):
@@ -90,17 +93,24 @@ class TweetDetailTableViewController: UITableViewController {
             cell.aspectRatio = aspectRatio
             cell.imageURL = url
         }
-        
-
         return cell
     }
     
-
-
-
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    // Transition to new image view when an image is selected
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if let cell = sender as? TweetDetailTableViewCell {
+            if cell.textLabel?.text == SectionNames.url  {
+                return false
+            }
+        }
+        
+        return true
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let cell = sender as? TweetDetailTableViewCell {
             if segue.identifier == "showImage" {
@@ -108,6 +118,7 @@ class TweetDetailTableViewController: UITableViewController {
                     ivc.detailImageURL = cell.imageURL
                 }
             }
+            if segue.identifier == "searchTweet"
         }
     }
 

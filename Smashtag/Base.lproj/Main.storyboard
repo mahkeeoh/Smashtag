@@ -109,7 +109,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b0E-CX-6Qi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-431" y="-176"/>
+            <point key="canvasLocation" x="-436" y="-270"/>
         </scene>
         <!--Tweet Detail Table View Controller-->
         <scene sceneID="3fq-Cr-SoY">
@@ -138,6 +138,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="124.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="qGf-I8-8L8" kind="show" identifier="searchTweet" id="x81-KH-HXF"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
@@ -150,7 +153,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cBK-9y-TjZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="465" y="252"/>
+            <point key="canvasLocation" x="398" y="225"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="Nof-ef-J8L">
@@ -164,31 +167,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PRF-Ac-55i">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                            </imageView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="U8c-7n-b6K">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pUy-ig-cyT">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </scrollView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="U8c-7n-b6K">
                                 <rect key="frame" x="177" y="323" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="PRF-Ac-55i" firstAttribute="top" secondItem="Pg9-LN-g2a" secondAttribute="bottom" id="5e7-Pt-zn7"/>
-                            <constraint firstItem="wZf-P9-hX3" firstAttribute="top" secondItem="PRF-Ac-55i" secondAttribute="bottom" id="ESL-py-BXc"/>
-                            <constraint firstItem="U8c-7n-b6K" firstAttribute="centerX" secondItem="PRF-Ac-55i" secondAttribute="centerX" id="S6a-z3-MWA"/>
-                            <constraint firstAttribute="trailing" secondItem="PRF-Ac-55i" secondAttribute="trailing" id="dD4-Aa-rY0"/>
+                            <constraint firstAttribute="trailing" secondItem="pUy-ig-cyT" secondAttribute="trailing" id="9Kv-nX-rXw"/>
+                            <constraint firstItem="U8c-7n-b6K" firstAttribute="centerX" secondItem="pUy-ig-cyT" secondAttribute="centerX" id="BY9-PS-sOq"/>
+                            <constraint firstItem="wZf-P9-hX3" firstAttribute="top" secondItem="pUy-ig-cyT" secondAttribute="bottom" id="EaF-ph-zEa"/>
+                            <constraint firstItem="pUy-ig-cyT" firstAttribute="leading" secondItem="XGW-0e-WCC" secondAttribute="leading" id="LDK-vs-XIx"/>
+                            <constraint firstItem="pUy-ig-cyT" firstAttribute="top" secondItem="Pg9-LN-g2a" secondAttribute="bottom" id="ZKH-aP-RgS"/>
                             <constraint firstItem="U8c-7n-b6K" firstAttribute="centerY" secondItem="XGW-0e-WCC" secondAttribute="centerY" id="wsd-X1-rIJ"/>
-                            <constraint firstItem="PRF-Ac-55i" firstAttribute="leading" secondItem="XGW-0e-WCC" secondAttribute="leading" id="yBY-7C-adn"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="imageDetailView" destination="PRF-Ac-55i" id="Gfe-Ag-I56"/>
                         <outlet property="loadingIndicator" destination="U8c-7n-b6K" id="ja7-g5-tt5"/>
+                        <outlet property="scrollView" destination="pUy-ig-cyT" id="Mwf-5k-yUH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wI1-bJ-xKB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1253.5999999999999" y="-193.85307346326837"/>
+            <point key="canvasLocation" x="1250" y="-270"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="eeI-3b-0O6">
@@ -209,4 +212,7 @@
             <point key="canvasLocation" x="-1386.4000000000001" y="-175.86206896551727"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="x81-KH-HXF"/>
+    </inferredMetricsTieBreakers>
 </document>

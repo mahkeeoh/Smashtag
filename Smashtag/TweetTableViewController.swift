@@ -13,15 +13,10 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
 {
     // MARK: Model
 
-    // part of our Model
-    // each sub-Array of Tweets is another "pull" from Twitter
+    // Each sub-Array of Tweets is another "pull" from Twitter
     // and corresponds to a section in our table
     private var tweets = [Array<Twitter.Tweet>]()
     
-    // public part of our Model
-    // when this is set
-    // we'll reset our tweets Array
-    // to reflect the result of fetching Tweets that match
     private var searchText: String? {
         didSet {
             searchTextField?.text = searchText
@@ -65,7 +60,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     // and then let the table view know that we added a section
     // (it will then call our UITableViewDataSource to get what it needs)
     private func searchForTweets() {
-        // "lastTwitterRequest?.newer ??" was added after lecture for REFRESHING
         if let request = lastTwitterRequest?.newer ?? twitterRequest() {
             lastTwitterRequest = request
             request.fetchTweets { [weak self] newTweets in      // this is off the main queue
@@ -90,12 +84,10 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // we use the row height in the storyboard as an "estimate"
+        // Use the row height in the storyboard as an "estimate"
         tableView.estimatedRowHeight = tableView.rowHeight
         // but use whatever autolayout says the height should be as the actual row height
         tableView.rowHeight = UITableViewAutomaticDimension
-        // the row height could alternatively be set
-        // using the UITableViewDelegate method heightForRowAt
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -111,16 +103,12 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     
     // MARK: Search Text Field
 
-    // set ourself to be the UITextFieldDelegate
-    // so that we can get textFieldShouldReturn sent to us
     @IBOutlet weak var searchTextField: UITextField! {
         didSet {
             searchTextField.delegate = self
         }
     }
-    
-    // when the return (i.e. Search) button is pressed in the keyboard
-    // we go off to search for the text in the searchTextField
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == searchTextField {
             searchText = searchTextField.text
@@ -140,20 +128,10 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Tweet", for: indexPath)
-
-        // get the tweet that is associated with this row
-        // that the table view is asking us to provide a UITableViewCell for
         let tweet: Twitter.Tweet = tweets[indexPath.section][indexPath.row]
-        print("\(tweet)")
-        
-        // our outlets to our custom UI
-        // are connected to this custom UITableViewCell-subclassed cell
-        // so we need to tell it which tweet is shown in its row
-        // and it can load up its UI through its outlets
         if let tweetCell = cell as? TweetTableViewCell {
             tweetCell.tweet = tweet
         }
-
         return cell
     }
     
