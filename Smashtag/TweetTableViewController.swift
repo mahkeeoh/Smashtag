@@ -9,7 +9,7 @@
 import UIKit
 import Twitter
 
-class TweetTableViewController: UITableViewController, UITextFieldDelegate
+class TweetTableViewController: UITableViewController, UITextFieldDelegate, TweetTableViewControllerDelegate
 {
     // MARK: Model
 
@@ -93,12 +93,17 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "TweetDetail" {
             if let vs = segue.destination.content as? TweetDetailTableViewController {
+                vs.delegate = self
                 if let cell = sender as? TweetTableViewCell {
                     vs.tweet = cell.tweet
                     vs.title = cell.tweet?.user.name
                 }
             }
         }
+    }
+    
+    func searchWithString(string: String) {
+        searchText = string
     }
     
     // MARK: Search Text Field

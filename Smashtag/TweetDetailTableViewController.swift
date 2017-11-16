@@ -9,12 +9,17 @@
 import UIKit
 import Twitter
 
+protocol TweetTableViewControllerDelegate: class {
+    func searchWithString(string: String)
+}
+
 class TweetDetailTableViewController: UITableViewController {
     
     // Model
     // Data structure made to make table view setup easier
     
     private var detailMentions = [DetailSection]()
+    var delegate: TweetTableViewControllerDelegate?
     
     var tweet: Twitter.Tweet? {
         didSet {
@@ -96,6 +101,21 @@ class TweetDetailTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let sectionheader = detailMentions[indexPath.section]
+        switch sectionheader.sectionName {
+        case SectionNames.url:
+            //TBD
+            break
+        case SectionNames.hashtag, SectionNames.user:
+            let searchText = tableView.cellForRow(at: indexPath)?.textLabel?.text
+            delegate?.searchWithString(string: searchText!)
+            navigationController?.popViewController(animated: true)
+        default:
+            break
+        }
+    }
+
     
     // MARK: - Navigation
 
@@ -118,7 +138,6 @@ class TweetDetailTableViewController: UITableViewController {
                     ivc.detailImageURL = cell.imageURL
                 }
             }
-            if segue.identifier == "searchTweet"
         }
     }
 
