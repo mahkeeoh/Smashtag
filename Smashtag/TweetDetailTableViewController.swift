@@ -105,9 +105,18 @@ class TweetDetailTableViewController: UITableViewController {
         let sectionheader = detailMentions[indexPath.section]
         switch sectionheader.sectionName {
         case SectionNames.url:
-            //TBD
-            break
+            // Get link and open url
+                let urlLink = tableView.cellForRow(at: indexPath)?.textLabel?.text
+                if let url = URL(string: urlLink!) {
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    }
+                    else {
+                        UIApplication.shared.openURL(url)
+                    }
+            }
         case SectionNames.hashtag, SectionNames.user:
+            // Return to original VC and search for string
             let searchText = tableView.cellForRow(at: indexPath)?.textLabel?.text
             delegate?.searchWithString(string: searchText!)
             navigationController?.popViewController(animated: true)
@@ -140,6 +149,9 @@ class TweetDetailTableViewController: UITableViewController {
             }
         }
     }
+    
+    // Open safari page from url
+
 
 }
 
