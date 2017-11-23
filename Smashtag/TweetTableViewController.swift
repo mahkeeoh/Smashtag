@@ -17,7 +17,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate, Twee
     // and corresponds to a section in our table
     private var tweets = [Array<Twitter.Tweet>]()
     
-    private var searchText: String? {
+    var searchText: String? {
         didSet {
             searchTextField?.text = searchText
             searchTextField?.resignFirstResponder()
@@ -25,7 +25,8 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate, Twee
             tweets.removeAll()
             tableView.reloadData()
             searchForTweets()
-            title = searchText
+            navigationItem.title = searchText
+            RecentTweets.add(newSearch: searchText!)
         }
     }
     
@@ -88,6 +89,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate, Twee
         tableView.estimatedRowHeight = tableView.rowHeight
         // but use whatever autolayout says the height should be as the actual row height
         tableView.rowHeight = UITableViewAutomaticDimension
+        title = "Tweets"
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
