@@ -22,6 +22,8 @@ class CoreDataTweetTableViewController: TweetTableViewController {
 
     func updateDatabase(with tweets: [Twitter.Tweet]) {
         container?.performBackgroundTask { [weak self] context in
+            
+            // Go through all hashtags and user mentions for each tweet and add them to core data
             for twitterInfo in tweets {
                 for hashtag in twitterInfo.hashtags {
                     _ =  try? Mention.findOrCreateMention(matching: twitterInfo, for: (self?.searchText)!, with: hashtag.keyword, in: context)
@@ -31,27 +33,6 @@ class CoreDataTweetTableViewController: TweetTableViewController {
                 }
             }
             try? context.save()
-            self?.printDatabaseStatistics()
-        }
-    }
-    
-    private func printDatabaseStatistics() {
-        if let context = container?.viewContext {
-            context.perform {
-                if Thread.isMainThread {
-                    print("on main thread")
-                } else {
-                    print("off main thread")
-                }
-                // bad way to count
-                if let tweetCount = (try? context.count(for: Tweet.fetchRequest())) {
-                    print("\(tweetCount) tweets")
-                }
-                // good way to count
-                if let mentionCount = (try? context.count(for: Mention.fetchRequest())) {
-                    print("\(mentionCount) mentions")
-                }
-            }
         }
     }
 }

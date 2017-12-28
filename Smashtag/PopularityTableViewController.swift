@@ -24,6 +24,8 @@ class PopularityTableViewController: FetchedResultsTableViewController {
     func updateUI() {
         if let context = container?.viewContext, searchTerm != nil {
             let request: NSFetchRequest<Mention> = Mention.fetchRequest()
+            
+            // sort by count and then alphabetically
             request.sortDescriptors = [NSSortDescriptor(
                 key: "count",
                 ascending: false,
@@ -33,6 +35,8 @@ class PopularityTableViewController: FetchedResultsTableViewController {
                     ascending: true,
                     selector: #selector(NSString.localizedCaseInsensitiveCompare(_:))
                 )]
+            
+            // find all mentions with search term whose tweet count is more than 1
             request.predicate = NSPredicate(format: "any searchTerm contains[c] %@ && count > 1", searchTerm!)
             fetchedResultsController = NSFetchedResultsController<Mention>(
                 fetchRequest: request,
@@ -52,13 +56,13 @@ class PopularityTableViewController: FetchedResultsTableViewController {
         
         if let mention = fetchedResultsController?.object(at: indexPath) {
             cell.textLabel?.text = mention.title
-            cell.detailTextLabel?.text = "\(mention.count) tweet\((mention.count == 1) ? "" : "s")"
+            cell.detailTextLabel?.text = "\(mention.count) tweets"
         }
         
         return cell
     }
     
-    // Navigation
+    // Navigation back to searching
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let cell = sender as? UITableViewCell {
             if let dvc = segue.destination as? TweetTableViewController {
