@@ -32,7 +32,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate, Twee
     
     
 
-    private func insertTweets(_ newTweets: [Twitter.Tweet]) {
+    func insertTweets(_ newTweets: [Twitter.Tweet]) {
         self.tweets.insert(newTweets, at:0)
         self.tableView.insertSections([0], with: .fade)
     }

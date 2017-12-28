@@ -44,12 +44,19 @@ class PastSearchesTableViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let cell = sender as? UITableViewCell {
-            if let dvc = segue.destination as? TweetTableViewController {
-                dvc.searchText = cell.textLabel?.text
+            switch segue.identifier {
+            case "SearchAgain"?:
+                if let dvc = segue.destination as? TweetTableViewController {
+                    dvc.searchText = cell.textLabel?.text
+                }
+            case "ShowPopular"?:
+                if let dvc = segue.destination as? PopularityTableViewController {
+                    dvc.searchTerm = cell.textLabel?.text
+                }
+            default:
+                break
             }
         }
-        
     }
-    
 
 }
